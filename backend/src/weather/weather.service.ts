@@ -11,14 +11,14 @@ export class WeatherService {
         try{
             const weather = await this.fetchWeather(city);
             const pokemonType = this.getPokemonType(weather.temp, weather.isRaining);
-            const pokemonNames = await this.fetchPokemonList(pokemonType);
+            const pokemons = await this.fetchPokemonList(pokemonType);
         
         return{
             city: city,
             temperature: weather.temp,
             isRaining: weather.isRaining,
             pokemonType,
-            pokemonNames,
+            pokemons,
         };
     }catch (error) {
         throw new InternalServerErrorException('Erro ao obter dados:' +error.message);
@@ -41,13 +41,33 @@ private async fetchWeather(city: string): Promise<{ temp: number, isRaining: boo
     return{temp, isRaining};
 }
 
-private async fetchPokemonList(type: string): Promise<string[]> {
+private async fetchPokemonList(type: string): Promise<{name:string, id:number, types:string[]}[]> {
     const pokemonApiUrl = `https://pokeapi.co/api/v2/type/${type}`;
     const response = await firstValueFrom(this.httpService.get(pokemonApiUrl));
-    if (!response.data.pokemon || response.data.pokemon.length === 0) {
+
+    const pokemons = response.data.pokemon;
+    if (!pokemons || pokemons.length === 0) {
         throw new NotFoundException(`Nenhum Pokémon encontrado para o tipo ${type}`);
     }
-    return response.data.pokemon.map((p: any) => p.pokemon.name);
+
+    const detailedPokemons = await Promise.all(
+        pokemons.slice(0, 9).map(async(p: any) => {
+            const id = this.extractIdFromUrl(p.pokemon.url);
+            const pokeData = await firstValueFrom(this.httpService.get(`https://pokeapi.co/api/v2/pokemon/${id}`));
+
+            return{
+                name: p.pokemon.name,
+                id,
+                types: pokeData.data.types.map((t: any) => t.type.name).join(', '),
+            };
+        })
+    );
+    return detailedPokemons;
+}
+
+private extractIdFromUrl(url: string): number {
+    const segments = url.split('/');
+    return parseInt(segments[segments.length - 2], 10);
 }
 
 private getPokemonType(temp: number, isRaining: boolean): string {
