@@ -1,6 +1,8 @@
 'use client';
 
 import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import { Heart } from "lucide-react"
 
 interface Pokemon{
     id: number;
@@ -11,9 +13,11 @@ interface Pokemon{
 
 interface PokemonCardProps{
     pokemon: Pokemon;
+    isFavorite?: boolean
+    onToggleFavorite?: () => void
 }
 
-export function PokemonCard({pokemon}: PokemonCardProps) {
+export function PokemonCard({pokemon, isFavorite = false, onToggleFavorite}: PokemonCardProps) {
     const getTypeColor = (type: string) => {
         const colors: {[key:string]:string} = {
             fire: "bg-red-100 text-red-800",
@@ -31,12 +35,19 @@ export function PokemonCard({pokemon}: PokemonCardProps) {
     };
 
     return(
-        <div className="bg-white rounded-xl p-4 shadow-lg hover:shadow-x1 transition-shadow">
+        <div className="relative bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow">
+            {/* Botão de favorito */}
+            {onToggleFavorite && (
+                <Button onClick={onToggleFavorite} variant="ghost" size="sm" className="absolute top-2 right-2 p-2 h-auto">
+                <Heart className={`h-5 w-5 ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
+                </Button>
+            )}
+
             <div className="text-center mb-3">
                 <h3 className="font-bold text-gray-800 mb-2 capitalize">{pokemon.name}</h3>
                 <div className="relative w-32 h-32 mx-auto mb-3">
                     <Image 
-                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
+                        src={pokemon.image} 
                         alt={pokemon.name} 
                         fill 
                         className="object-contain rounded-lg"
