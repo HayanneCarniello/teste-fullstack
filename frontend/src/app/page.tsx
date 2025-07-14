@@ -175,19 +175,36 @@ export default function Home() {
   }
 
   const handleHistorySelect = (historyItem: SearchHistory) => {
-    const weatherResult: WeatherData = {
-      city: historyItem.city,
-      temperature: historyItem.temperature,
-      isRaining: historyItem.isRaining,
-      type: historyItem.type,
-    }
-
-    setWeatherData(weatherResult)
-    setPokemons([]);
-    setHasSearched(true)
-    setError(null)
-    setShowHistory(false)
+  const weatherResult: WeatherData = {
+    city: historyItem.city,
+    temperature: historyItem.temperature,
+    isRaining: historyItem.isRaining,
+    type: historyItem.type,
   }
+
+  const cacheKey = historyItem.city.toLowerCase().trim()
+  const cachedPokemons = getFromCache(`pokemon_${cacheKey}`)
+
+  setWeatherData(weatherResult)
+
+  if (cachedPokemons) {
+    setPokemons(
+      cachedPokemons.map((p: any) => ({
+        id: p.id,
+        name: p.name,
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`,
+        types: p.types.split(",").map((t: string) => t.trim()),
+      }))
+    )
+  } else {
+    setPokemons([])
+  }
+
+  setHasSearched(true)
+  setError(null)
+  setShowHistory(false)
+}
+
 
   const toggleFavorite = (pokemon: Pokemon) => {
     const isFavorite = favorites.some((fav) => fav.id === pokemon.id)
