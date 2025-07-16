@@ -1,4 +1,115 @@
-# PokeHunter
+# Pokehunter - Fullstack
+
+Aplicação fullstack para buscar Pokémon baseados nas condições climáticas de uma cidade.  
+Desenvolvida como projeto técnico.
+---
+
+## 🛠 Tecnologias utilizadas
+
+###  Frontend
+- [Next.js](https://nextjs.org/) (React)
+- Tailwind CSS
+- [shadcn/ui](https://ui.shadcn.com/) — para botões, modais e componentes reutilizáveis
+  
+
+###  Backend
+NestJS (Node.js)
+PostgreSQL
+
+###  Containerização
+Docker
+Docker Compose
+
+## Como executar
+
+###  Pré-requisitos
+
+-   [Docker](https://www.docker.com/) e Docker Compose instalados
+    
+-   Node.js (opcional, apenas se quiser rodar local sem Docker)
+    
+
+----------
+
+### Executar com Docker (recomendado)
+
+No diretório do projeto, rode:
+
+`docker compose up --build` 
+
+Isso irá:
+
+-   Criar containers do banco PostgreSQL, backend NestJS e frontend Next.js.
+    
+-   Executar as migrações e seed automaticamente (se configurado no `docker-compose.yml`).
+    
+
+A aplicação ficará disponível em:
+
+-   🔗 Frontend: [http://localhost:3000](http://localhost:3000)
+    
+-   🔗 Backend: [http://localhost:3001](http://localhost:3001)
+    
+
+----------
+
+###  Executar local (sem Docker)
+
+1.  Clone o repositório
+
+
+`git clone https://github.com/seu-usuario/pokehunter.git cd pokehunter` 
+
+2.  Inicie o banco PostgreSQL (via Docker)
+    
+
+`docker compose up db` 
+
+3.  Configure o backend
+
+
+`cd backend
+npm install
+npx prisma migrate dev
+npx prisma db seed
+npm run start:dev` 
+
+4.  Em outro terminal, rode o frontend
+ 
+`cd frontend
+npm install
+npm run dev` 
+
+Acesse: [http://localhost:3000](http://localhost:3000)
+
+----------
+
+##  Como o app funciona
+
+- Digite o nome da cidade para buscar o clima e os Pokémon daquele ambiente  
+- Favorite Pokémon clicando no ❤️  
+- Veja o histórico das buscas anteriores  
+- Consulte o cache local (apenas em desenvolvimento)
+
+----------
+
+## ⚙️ Variáveis ambiente
+
+No backend (`.env`):
+
+`DATABASE_URL="postgresql://postgres:postgres@db:5432/pokehunter"`
+## 📝 Licença
+
+Projeto educacional / demonstração — sem fins comerciais.
+
+----------
+
+## 📬 Contato
+
+-   LinkedIn: [https://www.linkedin.com/in/hayanne-rodrigues-carniello-cavalcante/]
+
+
+# Original PokeHunter
 
 ## Definições
 - O desafio a seguir é o dia-a-dia que qualquer desenvolvedor irá enfrentar aqui na Autoinsp;
