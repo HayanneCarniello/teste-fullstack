@@ -1,9 +1,7 @@
 # Pokehunter - Fullstack
 
 - Aplicação fullstack para buscar Pokémon baseados nas condições climáticas de uma cidade.  
-Desenvolvida como projeto técnico.
-
-Clique aqui --> http://147.93.36.49:3000/
+Desenvolvida como projeto técnico. Clique aqui --> http://147.93.36.49:3000/
 ---
 
 ## 🛠 Tecnologias utilizadas
