@@ -1,7 +1,9 @@
 # Pokehunter - Fullstack
 
-Aplicação fullstack para buscar Pokémon baseados nas condições climáticas de uma cidade.  
+- Aplicação fullstack para buscar Pokémon baseados nas condições climáticas de uma cidade.  
 Desenvolvida como projeto técnico.
+
+Clique aqui --> http://147.93.36.49:3000/
 ---
 
 ## 🛠 Tecnologias utilizadas
@@ -86,9 +88,18 @@ Acesse: [http://localhost:3000](http://localhost:3000)
 
 ##  Como o app funciona
 
-- Digite o nome da cidade para buscar o clima e os Pokémon daquele ambiente  
-- Favorite Pokémon clicando no ❤️  
+Você pode acessar aqui --> http://147.93.36.49:3000/
+
+- Digite o nome da cidade para buscar o clima e os Pokémon daquele ambiente 
+![pokemonSearch](./resources/searchPokemon.png) 
+
+- Favorite Pokémon clicando no ❤️ 
+![favorite](./resources/selectFavorite.png)
+![selectFavorite](./resources/viewFavorites.png)
+
 - Veja o histórico das buscas anteriores  
+![history](./resources/history.png)
+
 - Consulte o cache local (apenas em desenvolvimento)
 
 ----------
@@ -109,7 +120,9 @@ Projeto educacional / demonstração — sem fins comerciais.
 -   LinkedIn: [https://www.linkedin.com/in/hayanne-rodrigues-carniello-cavalcante/]
 
 
-# Original PokeHunter
+---------
+
+# Instruções originais do projeto PokeHunter
 
 ## Definições
 - O desafio a seguir é o dia-a-dia que qualquer desenvolvedor irá enfrentar aqui na Autoinsp;
